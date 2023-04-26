@@ -10,6 +10,12 @@ type RotationReq struct {
 }
 
 type RotationRes struct {
-	// Todo
 	RotationId int64 `json:"rotation_id" example:"1" description:"rotation id"`
 }
+
+type RotationDeleteReq struct {
+	g.Meta `path:"/backend/rotation/delete" tags:"轮播图" method:"delete" summary:"删除轮播图"`
+	Id     int `json:"id" v:"required|min:1#轮播图id不能为空|轮播图id最小为1" dc:"轮播图id"`
+}
+
+type RotationDeleteRes struct{}

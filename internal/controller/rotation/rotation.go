@@ -30,3 +30,9 @@ func (c *Controller) Create(ctx context.Context, req *backend.RotationReq) (res 
 	}
 	return
 }
+
+// Delete 轮播图删除
+func (c *Controller) Delete(ctx context.Context, req *backend.RotationDeleteReq) (res *backend.RotationDeleteRes, err error) {
+	err = service.Rotation().Delete(ctx, req.Id)
+	return
+}
