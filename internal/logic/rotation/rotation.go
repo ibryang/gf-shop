@@ -19,6 +19,30 @@ func New() *sRotation {
 	return &sRotation{}
 }
 
+// List 轮播图列表
+func (s *sRotation) List(ctx context.Context, in *model.RotationListInput) (out *model.RotationListItemOutput, err error) {
+	out = &model.RotationListItemOutput{}
+	var m = dao.Rotation.Ctx(ctx)
+
+	listModel := m.Page(in.Page, in.PageSize)
+	listModel = listModel.OrderDesc(dao.Rotation.Columns().Sort)
+	var list []*model.RotationListItem
+	if err = listModel.Scan(&list); err != nil {
+		return nil, err
+	}
+
+	if len(list) == 0 {
+		return out, nil
+	}
+
+	out.Total, err = m.Count()
+	if err != nil {
+		return nil, err
+	}
+	out.List = list
+	return out, nil
+}
+
 // Create 轮播图创建
 func (s *sRotation) Create(ctx context.Context, in *model.RotationCreateInput) (out model.RotationCreateOutput, err error) {
 	id, err := dao.Rotation.Ctx(ctx).InsertAndGetId(in)

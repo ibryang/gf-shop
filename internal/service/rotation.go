@@ -12,6 +12,7 @@ import (
 
 type (
 	IRotation interface {
+		List(ctx context.Context, in *model.RotationListInput) (out *model.RotationListItemOutput, err error)
 		Create(ctx context.Context, in *model.RotationCreateInput) (out model.RotationCreateOutput, err error)
 		Delete(ctx context.Context, id int) (err error)
 		Update(ctx context.Context, in *model.RotationUpdateInput) (err error)

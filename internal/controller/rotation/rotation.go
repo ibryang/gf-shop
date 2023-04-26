@@ -13,6 +13,23 @@ func New() *Controller {
 	return &Controller{}
 }
 
+// List 轮播图列表
+func (c *Controller) List(ctx context.Context, req *backend.RotationListReq) (res *backend.RotationListRes, err error) {
+	output, err := service.Rotation().List(ctx, &model.RotationListInput{
+		Page:     req.Page,
+		PageSize: req.PageSize,
+		Sort:     req.Sort,
+	})
+	if err != nil {
+		return nil, err
+	}
+	res = &backend.RotationListRes{
+		List:  output.List,
+		Total: output.Total,
+	}
+	return
+}
+
 // Create 轮播图创建
 func (c *Controller) Create(ctx context.Context, req *backend.RotationReq) (res *backend.RotationRes, err error) {
 	output, err := service.Rotation().Create(ctx, &model.RotationCreateInput{
