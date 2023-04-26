@@ -6,6 +6,7 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"shop/internal/controller/hello"
+	"shop/internal/controller/position"
 	"shop/internal/controller/rotation"
 )
 
@@ -21,6 +22,7 @@ var (
 				group.Bind(
 					hello.New(),
 					rotation.New(),
+					position.New(),
 				)
 			})
 			s.Run()
