@@ -18,3 +18,9 @@ type RotationCreateInput struct {
 type RotationCreateOutput struct {
 	RequestId int64 `json:"request_id"`
 }
+
+// RotationUpdateInput 轮播图更新时的输入参数
+type RotationUpdateInput struct {
+	Id int
+	RotationCreateUpdateBase
+}

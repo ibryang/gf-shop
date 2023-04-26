@@ -36,3 +36,16 @@ func (c *Controller) Delete(ctx context.Context, req *backend.RotationDeleteReq)
 	err = service.Rotation().Delete(ctx, req.Id)
 	return
 }
+
+// Update 轮播图更新
+func (c *Controller) Update(ctx context.Context, req *backend.RotationUpdateReq) (res *backend.RotationUpdateRes, err error) {
+	err = service.Rotation().Update(ctx, &model.RotationUpdateInput{
+		RotationCreateUpdateBase: model.RotationCreateUpdateBase{
+			PicUrl: req.PicUrl,
+			Link:   req.Link,
+			Sort:   req.Sort,
+		},
+		Id: req.Id,
+	})
+	return
+}
