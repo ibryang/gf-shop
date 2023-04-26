@@ -1,0 +1,17 @@
+
+# CLI tool, only in development environment.
+# https://goframe.org/pages/viewpage.action?pageId=3673173
+gfcli:
+  build:
+    name: "shop"
+    arch: "amd64"
+    system: "linux,darwin,windows"
+    mod: ""
+    cgo: 0
+
+  gen:
+    dao:
+      - link: "mysql:root:admin123@tcp(127.0.0.1:3306)/shop"
+        removePrefix: "gf_"
+        descriptionTag: true
+        noModelComment: true
