@@ -8,6 +8,7 @@ import (
 	"shop/internal/controller/hello"
 	"shop/internal/controller/position"
 	"shop/internal/controller/rotation"
+	"shop/internal/controller/user"
 )
 
 var (
@@ -23,6 +24,7 @@ var (
 					hello.New(),
 					rotation.New(),
 					position.New(),
+					user.New(),
 				)
 			})
 			s.Run()
