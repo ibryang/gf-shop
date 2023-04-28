@@ -6,9 +6,11 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"shop/internal/controller/hello"
+	"shop/internal/controller/login"
 	"shop/internal/controller/position"
 	"shop/internal/controller/rotation"
 	"shop/internal/controller/user"
+	"shop/internal/service"
 )
 
 var (
@@ -19,12 +21,14 @@ var (
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			s := g.Server()
 			s.Group("/", func(group *ghttp.RouterGroup) {
-				group.Middleware(ghttp.MiddlewareHandlerResponse)
+				//group.Middleware(ghttp.MiddlewareHandlerResponse)
+				group.Middleware(service.Middleware().Ctx, service.Middleware().ResponseHandler)
 				group.Bind(
 					hello.New(),
 					rotation.New(),
 					position.New(),
 					user.New(),
+					login.New(),
 				)
 			})
 			s.Run()
