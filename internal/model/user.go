@@ -33,8 +33,8 @@ type UserListInput struct {
 	PageSize int `json:"page_size"`
 }
 
-// UserListItem 用户列表时的输出参数
-type UserListItem struct {
+// UserItemOutput 用户列表时的输出参数
+type UserItemOutput struct {
 	Id       int    `json:"id"`
 	Username string `json:"username"`
 	//Password  string `json:"password"`
@@ -46,7 +46,7 @@ type UserListItem struct {
 	UpdatedAt string `json:"updated_at"`
 }
 
-type UserListItemOutput struct {
-	List  []*UserListItem `json:"list"`
-	Total int             `json:"total"`
+type UserItemListOutput struct {
+	List  []*UserItemOutput `json:"list"`
+	Total int               `json:"total"`
 }

@@ -39,5 +39,6 @@ func (s *sLogin) Login(ctx context.Context, in *model.LoginInput) (err error) {
 		Username: user.Username,
 		IsAdmin:  user.IsAdmin,
 	})
+
 	return
 }

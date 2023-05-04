@@ -11,6 +11,8 @@ import (
 
 type (
 	IMiddleware interface {
+		Auth(r *ghttp.Request)
+		CORS(r *ghttp.Request)
 		ResponseHandler(r *ghttp.Request)
 		Ctx(r *ghttp.Request)
 	}

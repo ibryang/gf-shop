@@ -47,3 +47,13 @@ type UserListRes struct {
 	List  interface{} `json:"list"`
 	Total int         `json:"total"`
 }
+
+type UserInfoReq struct {
+	g.Meta `path:"/backend/user/info" tags:"用户" method:"get" summary:"用户信息"`
+}
+
+type UserInfoRes struct {
+	Id          int    `json:"id"`
+	IdentityKey string `json:"identity_key"`
+	Payload     string `json:"payload"`
+}

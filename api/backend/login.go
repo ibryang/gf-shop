@@ -1,6 +1,9 @@
 package backend
 
-import "github.com/gogf/gf/v2/frame/g"
+import (
+	"github.com/gogf/gf/v2/frame/g"
+	"time"
+)
 
 // LoginReq 登录
 type LoginReq struct {
@@ -11,5 +14,22 @@ type LoginReq struct {
 
 // LoginRes 登录返回
 type LoginRes struct {
-	Info interface{} `json:"info"`
+	Token  string    `json:"token"`
+	Expire time.Time `json:"expire"`
+}
+
+// RefreshTokenReq 刷新token
+type RefreshTokenReq struct {
+	g.Meta `path:"/backend/refresh_token" method:"get" tags:"鉴权" summary:"刷新token"`
+}
+
+// RefreshTokenRes 刷新token返回
+type RefreshTokenRes struct {
+	Token  string    `json:"token"`
+	Expire time.Time `json:"expire"`
+}
+
+// LogoutReq 登出
+type LogoutReq struct {
+	g.Meta `path:"/backend/logout" method:"get" tags:"鉴权" summary:"登出"`
 }

@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/util/grand"
 	"shop/internal/dao"
 	"shop/internal/model"
+	"shop/internal/model/entity"
 	"shop/internal/service"
 	"shop/utility"
 )
@@ -22,12 +24,12 @@ func New() *sUser {
 }
 
 // List 用户列表
-func (s *sUser) List(ctx context.Context, in *model.UserListInput) (out *model.UserListItemOutput, err error) {
-	out = &model.UserListItemOutput{}
+func (s *sUser) List(ctx context.Context, in *model.UserListInput) (out *model.UserItemListOutput, err error) {
+	out = &model.UserItemListOutput{}
 	var m = dao.User.Ctx(ctx)
 	listModel := m.Page(in.Page, in.PageSize)
 	listModel = listModel.OrderDesc(dao.User.Columns().Sort)
-	var list []*model.UserListItem
+	var list []*model.UserItemOutput
 	if err = listModel.Scan(&list); err != nil {
 		return nil, err
 	}
@@ -46,7 +48,7 @@ func (s *sUser) List(ctx context.Context, in *model.UserListInput) (out *model.U
 
 // IsExist 查询用户是否存在
 func (s *sUser) IsExist(ctx context.Context, username string) bool {
-	var user *model.UserListItem
+	var user *model.UserItemOutput
 	err := dao.User.Ctx(ctx).Where(dao.User.Columns().Username, username).Scan(&user)
 	if err != nil {
 		return false
@@ -104,4 +106,27 @@ func (s *sUser) Update(ctx context.Context, in *model.UserUpdateInput) (err erro
 			Update()
 		return err
 	})
+}
+
+// GetUserByUsernamePassword 通过用户名和密码获取用户信息
+func (s *sUser) GetUserByUsernamePassword(ctx context.Context, in model.LoginInput) (out map[string]interface{}) {
+	var (
+		user *entity.User
+	)
+	err := dao.User.Ctx(ctx).Where(dao.User.Columns().Username, in.Username).Scan(&user)
+	if err != nil {
+		return nil
+	}
+	if user == nil {
+		return nil
+	}
+	if user.Password != utility.EncryptPassword(in.Password, user.Salt) {
+		return nil
+	}
+	return g.Map{
+		"id":       user.Id,
+		"username": user.Username,
+		"is_admin": user.IsAdmin,
+		"role_ids": user.RoleIds,
+	}
 }

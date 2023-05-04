@@ -12,11 +12,12 @@ import (
 
 type (
 	IUser interface {
-		List(ctx context.Context, in *model.UserListInput) (out *model.UserListItemOutput, err error)
+		List(ctx context.Context, in *model.UserListInput) (out *model.UserItemListOutput, err error)
 		IsExist(ctx context.Context, username string) bool
 		Create(ctx context.Context, in *model.UserCreateInput) (out model.UserCreateOutput, err error)
 		Delete(ctx context.Context, id int) (err error)
 		Update(ctx context.Context, in *model.UserUpdateInput) (err error)
+		GetUserByUsernamePassword(ctx context.Context, in model.LoginInput) (out map[string]interface{})
 	}
 )
 

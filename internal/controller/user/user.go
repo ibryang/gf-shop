@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"github.com/gogf/gf/v2/util/gconv"
 	"shop/api/backend"
 	"shop/internal/model"
 	"shop/internal/service"
@@ -69,4 +70,13 @@ func (c *Controller) Update(ctx context.Context, req *backend.UserUpdateReq) (re
 		Id: req.Id,
 	})
 	return
+}
+
+// Info 用户详情
+func (c *Controller) Info(ctx context.Context, req *backend.UserInfoReq) (res *backend.UserInfoRes, err error) {
+	return &backend.UserInfoRes{
+		Id:          gconv.Int(service.Auth().GetIdentity(ctx)),
+		IdentityKey: service.Auth().IdentityKey,
+		Payload:     service.Auth().GetPayload(ctx),
+	}, nil
 }

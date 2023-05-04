@@ -30,6 +30,10 @@ var (
 					user.New(),
 					login.New(),
 				)
+				group.Middleware(service.Middleware().Auth)
+				group.ALLMap(map[string]interface{}{
+					"/backend/user/info": user.New().Info,
+				})
 			})
 			s.Run()
 			return nil
