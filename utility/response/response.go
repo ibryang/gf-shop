@@ -1,7 +1,6 @@
 package response
 
 import (
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -16,7 +15,7 @@ func Json(r *ghttp.Request, code int, message string, data ...interface{}) {
 	if len(data) > 0 {
 		resData = data[0]
 	} else {
-		resData = g.Map{}
+		resData = nil
 	}
 	r.Response.WriteJson(JsonRes{
 		Code:    code,

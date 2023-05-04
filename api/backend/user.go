@@ -52,8 +52,17 @@ type UserInfoReq struct {
 	g.Meta `path:"/backend/user/info" tags:"用户" method:"get" summary:"用户信息"`
 }
 
+// for jwt
+//type UserInfoRes struct {
+//	Id          int    `json:"id"`
+//	IdentityKey string `json:"identity_key"`
+//	Payload     string `json:"payload"`
+//}
+
+// for gtoken
 type UserInfoRes struct {
-	Id          int    `json:"id"`
-	IdentityKey string `json:"identity_key"`
-	Payload     string `json:"payload"`
+	Id       int    `json:"id"`
+	Username string `json:"username"`
+	RoleIds  []int  `json:"role_ids"`
+	IsAdmin  int    `json:"is_admin"`
 }

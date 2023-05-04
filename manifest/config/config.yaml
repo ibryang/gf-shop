@@ -23,3 +23,13 @@ database:
   default:
     link: "mysql:root:admin123@tcp(127.0.0.1:3306)/shop"
     debug: true
+
+redis:
+  default:
+    address: 127.0.0.1:6379
+    db: 0
+
+  cache:
+    address: 127.0.0.1:6379
+    db: 1
+    idleTimeout: 600

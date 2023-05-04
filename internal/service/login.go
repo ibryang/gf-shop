@@ -8,11 +8,17 @@ package service
 import (
 	"context"
 	"shop/internal/model"
+
+	"github.com/goflyfox/gtoken/gtoken"
+	"github.com/gogf/gf/v2/net/ghttp"
 )
 
 type (
 	ILogin interface {
 		Login(ctx context.Context, in *model.LoginInput) (err error)
+		LoginBeforeFunc(r *ghttp.Request) (string, interface{})
+		LoginAfterFunc(r *ghttp.Request, resp gtoken.Resp)
+		AuthAfterFunc(r *ghttp.Request, resp gtoken.Resp)
 	}
 )
 

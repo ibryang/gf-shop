@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"fmt"
 	"github.com/gogf/gf/v2/util/gconv"
 	"shop/api/backend"
 	"shop/internal/model"
@@ -73,10 +74,26 @@ func (c *Controller) Update(ctx context.Context, req *backend.UserUpdateReq) (re
 }
 
 // Info 用户详情
+// for jwt
+//func (c *Controller) Info(ctx context.Context, req *backend.UserInfoReq) (res *backend.UserInfoRes, err error) {
+//	return &backend.UserInfoRes{
+//		Id:          gconv.Int(service.Auth().GetIdentity(ctx)),
+//		IdentityKey: service.Auth().IdentityKey,
+//		Payload:     service.Auth().GetPayload(ctx),
+//	}, nil
+//}
+
+// Info 用户详情
+// for gtoken
 func (c *Controller) Info(ctx context.Context, req *backend.UserInfoReq) (res *backend.UserInfoRes, err error) {
-	return &backend.UserInfoRes{
-		Id:          gconv.Int(service.Auth().GetIdentity(ctx)),
-		IdentityKey: service.Auth().IdentityKey,
-		Payload:     service.Auth().GetPayload(ctx),
-	}, nil
+	fmt.Println(gconv.Int(ctx.Value("id")))
+	res = &backend.UserInfoRes{
+		Id:       gconv.Int(ctx.Value("id")),
+		Username: gconv.String(ctx.Value("username")),
+		IsAdmin:  gconv.Int(ctx.Value("isAdmin")),
+		RoleIds:  gconv.Ints(ctx.Value("roleIds")),
+	}
+	fmt.Println(res)
+	return
+
 }

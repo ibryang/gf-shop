@@ -13,9 +13,20 @@ type LoginReq struct {
 }
 
 // LoginRes 登录返回
+// for jwt
+//type LoginRes struct {
+//	Token  string    `json:"token"`
+//	Expire time.Time `json:"expire"`
+//}
+
+// LoginRes 登录返回
+// for gtoken
 type LoginRes struct {
-	Token  string    `json:"token"`
-	Expire time.Time `json:"expire"`
+	Type    string      `json:"type"`
+	Token   string      `json:"token"`
+	Expire  interface{} `json:"expire"`
+	IsAdmin int         `json:"is_admin"`
+	RoleIds []int       `json:"role_ids"`
 }
 
 // RefreshTokenReq 刷新token
