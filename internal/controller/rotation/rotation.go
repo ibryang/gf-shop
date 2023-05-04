@@ -3,6 +3,7 @@ package rotation
 import (
 	"context"
 	"shop/api/backend"
+	"shop/api/frontend"
 	"shop/internal/model"
 	"shop/internal/service"
 )
@@ -24,6 +25,23 @@ func (c *Controller) List(ctx context.Context, req *backend.RotationListReq) (re
 		return nil, err
 	}
 	res = &backend.RotationListRes{
+		List:  output.List,
+		Total: output.Total,
+	}
+	return
+}
+
+// FrontendList 前台轮播图列表
+func (c *Controller) FrontendList(ctx context.Context, req *frontend.RotationListReq) (res *frontend.RotationListRes, err error) {
+	output, err := service.Rotation().List(ctx, &model.RotationListInput{
+		Page:     req.Page,
+		PageSize: req.PageSize,
+		Sort:     req.Sort,
+	})
+	if err != nil {
+		return nil, err
+	}
+	res = &frontend.RotationListRes{
 		List:  output.List,
 		Total: output.Total,
 	}
