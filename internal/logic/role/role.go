@@ -2,6 +2,7 @@ package role
 
 import (
 	"context"
+	"github.com/gogf/gf/v2/frame/g"
 	"shop/internal/dao"
 	"shop/internal/model"
 	"shop/internal/service"
@@ -40,6 +41,7 @@ func (s *sRole) List(ctx context.Context, in *model.RoleListInput) (out *model.R
 	return out, nil
 }
 
+// Create 添加角色
 func (s *sRole) Create(ctx context.Context, in *model.RoleAddInput) (out *model.RoleAddOutput, err error) {
 	lastInsertId, err := dao.RoleInfo.Ctx(ctx).InsertAndGetId(in)
 	if err != nil {
@@ -49,10 +51,28 @@ func (s *sRole) Create(ctx context.Context, in *model.RoleAddInput) (out *model.
 	return &model.RoleAddOutput{RoleId: lastInsertId}, nil
 }
 
+// AddPermission 添加权限
+func (s *sRole) AddPermission(ctx context.Context, in *model.RoleAddPermissionInput) (out *model.RoleAddPermissionOutput, err error) {
+	id, err := dao.RolePermissionInfo.Ctx(ctx).InsertAndGetId(in)
+	if err != nil {
+		return nil, err
+	}
+	return &model.RoleAddPermissionOutput{Id: id}, nil
+}
+
 // Delete 角色删除
 func (s *sRole) Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.RoleInfo.Ctx(ctx).Unscoped().Delete(dao.RoleInfo.Columns().Id, id)
 	return
+}
+
+// DeletePermission 删除权限
+func (s *sRole) DeletePermission(ctx context.Context, in *model.RoleDeletePermissionInput) error {
+	_, err := dao.RolePermissionInfo.Ctx(ctx).Where(g.Map{
+		dao.RolePermissionInfo.Columns().RoleId:       in.RoleId,
+		dao.RolePermissionInfo.Columns().PermissionId: in.PermissionId,
+	}).Delete()
+	return err
 }
 
 // Update 用户更新

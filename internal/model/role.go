@@ -36,3 +36,20 @@ type RoleItemListOutput struct {
 	List  []*RoleItemOutput `json:"list"`
 	Total int               `json:"total"`
 }
+
+type RoleAddPermissionInput struct {
+	RoleId       int `json:"role_id"`
+	PermissionId int `json:"permission_id"`
+}
+
+type RoleAddPermissionOutput struct {
+	Id int64 `json:"id"`
+}
+
+type RoleDeletePermissionInput struct {
+	RoleId       int `json:"role_id"`
+	PermissionId int `json:"permission_id"`
+}
+
+type RoleDeletePermissionOutput struct {
+}

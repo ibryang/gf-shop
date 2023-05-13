@@ -44,3 +44,22 @@ type RoleListRes struct {
 	List  interface{} `json:"list"`
 	Total int         `json:"total"`
 }
+
+type RoleAddPermissionReq struct {
+	g.Meta       `path:"/backend/role/add/permission" method:"post" tags:"角色管理" summery:"添加角色权限"`
+	RoleId       int `json:"role_id" dc:"角色id"`
+	PermissionId int `json:"permission_id" dc:"权限id"`
+}
+
+type RoleAddPermissionRes struct {
+	Id int64 `json:"id"`
+}
+
+type RoleDeletePermissionReq struct {
+	g.Meta       `path:"/backend/role/delete/permission" method:"delete" tags:"角色管理" summery:"删除角色权限"`
+	RoleId       int `json:"role_id" dc:"角色id"`
+	PermissionId int `json:"permission_id" dc:"权限id"`
+}
+
+type RoleDeletePermissionRes struct {
+}

@@ -58,3 +58,27 @@ func (c *Controller) Update(ctx context.Context, req *backend.RoleUpdateReq) (re
 	})
 	return &backend.RoleUpdateRes{RoleId: int64(req.Id)}, err
 }
+
+func (c *Controller) AddPermission(ctx context.Context, req *backend.RoleAddPermissionReq) (res *backend.RoleAddPermissionRes, err error) {
+	out, err := service.Role().AddPermission(ctx, &model.RoleAddPermissionInput{
+		RoleId:       req.RoleId,
+		PermissionId: req.PermissionId,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &backend.RoleAddPermissionRes{
+		Id: out.Id,
+	}, nil
+}
+
+func (c *Controller) DeletePermission(ctx context.Context, req *backend.RoleDeletePermissionReq) (res *backend.RoleDeletePermissionRes, err error) {
+	err = service.Role().DeletePermission(ctx, &model.RoleDeletePermissionInput{
+		RoleId:       req.RoleId,
+		PermissionId: req.PermissionId,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return
+}
