@@ -10,6 +10,7 @@ import (
 	"shop/internal/controller/data"
 	"shop/internal/controller/hello"
 	"shop/internal/controller/login"
+	"shop/internal/controller/permission"
 	"shop/internal/controller/position"
 	"shop/internal/controller/role"
 	"shop/internal/controller/rotation"
@@ -58,6 +59,7 @@ var (
 					admin.New().Update,
 					data.New(),
 					role.New(),
+					permission.New(),
 				)
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{

@@ -6,6 +6,7 @@ import (
 	_ "shop/internal/logic/data"
 	_ "shop/internal/logic/login"
 	_ "shop/internal/logic/middleware"
+	_ "shop/internal/logic/permission"
 	_ "shop/internal/logic/position"
 	_ "shop/internal/logic/role"
 	_ "shop/internal/logic/rotation"
