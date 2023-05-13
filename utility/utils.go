@@ -221,13 +221,13 @@ func GetRealFilesUrl(r *ghttp.Request, path string) (realPath string, err error)
 
 // GetFilesPath 获取附件相对路径
 func GetFilesPath(fileUrl string) (path string, err error) {
-	gvar_type, err := g.Cfg().Get(context.Background(), "upload.type")
+	gvar_type, err := g.Cfg().Get(context.Background(), "file.type")
 	if err != nil {
 		return "", err
 	}
 	upType := gstr.ToLower(gvar_type.String())
 
-	gvar_UpPath, err := g.Cfg().Get(context.Background(), "upload.local.UpPath")
+	gvar_UpPath, err := g.Cfg().Get(context.Background(), "file.local.UpPath")
 	if err != nil {
 		return "", err
 	}

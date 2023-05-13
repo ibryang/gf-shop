@@ -4,6 +4,7 @@ import (
 	_ "shop/internal/logic/admin"
 	_ "shop/internal/logic/bizctx"
 	_ "shop/internal/logic/data"
+	_ "shop/internal/logic/file"
 	_ "shop/internal/logic/login"
 	_ "shop/internal/logic/middleware"
 	_ "shop/internal/logic/permission"

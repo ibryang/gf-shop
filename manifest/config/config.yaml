@@ -33,3 +33,6 @@ redis:
     address: 127.0.0.1:6379
     db: 1
     idleTimeout: 600
+
+upload:
+  path: "resource/upload"

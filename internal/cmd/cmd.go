@@ -8,6 +8,7 @@ import (
 	"github.com/gogf/gf/v2/os/gcmd"
 	"shop/internal/controller/admin"
 	"shop/internal/controller/data"
+	"shop/internal/controller/file"
 	"shop/internal/controller/hello"
 	"shop/internal/controller/login"
 	"shop/internal/controller/permission"
@@ -60,6 +61,7 @@ var (
 					data.New(),
 					role.New(),
 					permission.New(),
+					file.New(),
 				)
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{
