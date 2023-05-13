@@ -67,8 +67,8 @@ func Unauthorized(ctx context.Context, code int, message string) {
 }
 
 // Authenticator is used to validate login parameters.
-// It must return user data as user identifier, it will be stored in Claim Array.
-// if your identityKey is 'id', your user data must have 'id'
+// It must return admin data as admin identifier, it will be stored in Claim Array.
+// if your identityKey is 'id', your admin data must have 'id'
 // Check error (e) to determine the appropriate error message.
 func Authenticator(ctx context.Context) (interface{}, error) {
 	var (
@@ -80,7 +80,7 @@ func Authenticator(ctx context.Context) (interface{}, error) {
 		return "", fmt.Errorf("用户名或密码错误")
 	}
 
-	if user := User().GetUserByUsernamePassword(ctx, in); user != nil {
+	if user := Admin().GetUserByUsernamePassword(ctx, in); user != nil {
 		return user, nil
 	}
 	g.Log().Errorf(ctx, "用户名或密码错误")

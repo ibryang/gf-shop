@@ -24,22 +24,22 @@ func init() {
 }
 
 // SetUser 将用户信息设置到上下文中, 供请求使用
-func (s *sSession) SetUser(ctx context.Context, user *entity.User) error {
+func (s *sSession) SetUser(ctx context.Context, user *entity.AdminInfo) error {
 	return service.BizCtx().Get(ctx).Session.Set(sessionUserKey, user)
 }
 
 // GetUser 获取上下文用户
-func (s *sSession) GetUser(ctx context.Context) *entity.User {
+func (s *sSession) GetUser(ctx context.Context) *entity.AdminInfo {
 	customCtx := service.BizCtx().Get(ctx)
 	if customCtx != nil {
 		v, _ := customCtx.Session.Get(sessionUserKey)
 		if !v.IsNil() {
-			var user *entity.User
+			var user *entity.AdminInfo
 			_ = v.Struct(&user)
 			return user
 		}
 	}
-	return &entity.User{}
+	return &entity.AdminInfo{}
 }
 
 // RemoveUser 移除上下文用户

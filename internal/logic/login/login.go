@@ -7,6 +7,7 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/util/gconv"
 	"shop/api/backend"
+	"shop/internal/consts"
 	"shop/internal/dao"
 	"shop/internal/model"
 	"shop/internal/model/entity"
@@ -26,12 +27,12 @@ func New() *sLogin {
 }
 
 func (s *sLogin) Login(ctx context.Context, in *model.LoginInput) (err error) {
-	var user = new(entity.User)
-	err = dao.User.Ctx(ctx).Where(dao.User.Columns().Username, in.Username).Scan(&user)
+	var user = new(entity.AdminInfo)
+	err = dao.AdminInfo.Ctx(ctx).Where(dao.User.Columns().Username, in.Username).Scan(&user)
 	if err != nil {
 		return err
 	}
-	encryptPassword := utility.EncryptPassword(in.Password, user.Salt)
+	encryptPassword := utility.EncryptPassword(in.Password, user.UserSalt)
 	if user.Password != encryptPassword {
 		return fmt.Errorf("用户名或密码错误")
 	}
@@ -41,7 +42,7 @@ func (s *sLogin) Login(ctx context.Context, in *model.LoginInput) (err error) {
 	}
 	service.BizCtx().SetUser(ctx, &model.ContextUser{
 		Id:       user.Id,
-		Username: user.Username,
+		Username: user.Name,
 		IsAdmin:  user.IsAdmin,
 	})
 
@@ -55,32 +56,33 @@ func (s *sLogin) LoginBeforeFunc(r *ghttp.Request) (string, interface{}) {
 	if username.String() == "" || password.String() == "" {
 		response.JsonExit(r, -1, "账号或密码错误.")
 	}
-	var user = new(entity.User)
+	var user = new(entity.AdminInfo)
 	ctx := r.Context()
-	err := dao.User.Ctx(ctx).Where(dao.User.Columns().Username, username).Scan(&user)
+	err := dao.AdminInfo.Ctx(ctx).Where(dao.AdminInfo.Columns().Name, username).Scan(&user)
 	if err != nil {
 		response.JsonExit(r, -1, "账号或密码错误.")
 		r.ExitAll()
 	}
-	encryptPassword := utility.EncryptPassword(password.String(), user.Salt)
+	encryptPassword := utility.EncryptPassword(password.String(), user.UserSalt)
 	if user.Password != encryptPassword {
 		response.JsonExit(r, -1, "账号或密码错误.")
 		r.ExitAll()
 	}
 
-	return gconv.String(user.Id), model.UserItemOutput{
-		Id:       user.Id,
-		Username: user.Username,
-		IsAdmin:  user.IsAdmin,
-		RoleIds:  gconv.Ints(user.RoleIds),
+	return gconv.String(user.Id), model.AdminItemOutput{
+		Id:      user.Id,
+		Name:    user.Name,
+		IsAdmin: user.IsAdmin,
+		RoleIds: gconv.Ints(user.RoleIds),
 	}
 }
 
 // LoginAfterFunc GToken登录后操作
 func (s *sLogin) LoginAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
 	userId := resp.Get("userKey")
-	var user = new(entity.User)
-	err := dao.User.Ctx(r.Context()).Where(dao.User.Columns().Id, userId).Scan(&user)
+	var user = new(entity.AdminInfo)
+	err := dao.AdminInfo.Ctx(r.Context()).Where(dao.User.Columns().Id, userId).Scan(&user)
+	fmt.Println(user)
 	if err != nil {
 		response.JsonExit(r, -1, "账号或密码错误.")
 		return
@@ -96,14 +98,14 @@ func (s *sLogin) LoginAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
 
 // AuthAfterFunc 授权后操作
 func (s *sLogin) AuthAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
-	var user model.UserItemOutput
+	var user model.AdminItemOutput
 	err := gconv.Struct(resp.GetString("data"), &user)
 	if err != nil {
-		response.JsonExit(r, -1, "账号或密码错误.")
+		response.JsonExit(r, -1, "请求未授权.")
 	}
-	r.SetCtxVar("id", user.Id)
-	r.SetCtxVar("username", user.Username)
-	r.SetCtxVar("isAdmin", user.IsAdmin)
-	r.SetCtxVar("roleIds", user.RoleIds)
+	r.SetCtxVar(consts.ContextUserId, user.Id)
+	r.SetCtxVar(consts.ContextUsername, user.Name)
+	r.SetCtxVar(consts.ContextUserIsAdmin, user.IsAdmin)
+	r.SetCtxVar(consts.ContextUserRoleIds, user.RoleIds)
 	r.Middleware.Next()
 }

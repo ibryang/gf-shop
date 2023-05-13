@@ -11,14 +11,14 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 )
 
-// UserDao is the data access object for table user.
+// UserDao is the data access object for table admin.
 type UserDao struct {
 	table   string      // table is the underlying table name of the DAO.
 	group   string      // group is the database configuration group name of current DAO.
 	columns UserColumns // columns contains all the column names of Table for convenient usage.
 }
 
-// UserColumns defines and stores column names for table user.
+// UserColumns defines and stores column names for table admin.
 type UserColumns struct {
 	Id        string //
 	Username  string // 用户名
@@ -32,7 +32,7 @@ type UserColumns struct {
 	DeletedAt string //
 }
 
-// userColumns holds the columns for table user.
+// userColumns holds the columns for table admin.
 var userColumns = UserColumns{
 	Id:        "id",
 	Username:  "username",
@@ -50,7 +50,7 @@ var userColumns = UserColumns{
 func NewUserDao() *UserDao {
 	return &UserDao{
 		group:   "default",
-		table:   "user",
+		table:   "admin",
 		columns: userColumns,
 	}
 }
