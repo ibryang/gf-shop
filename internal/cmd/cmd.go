@@ -11,6 +11,7 @@ import (
 	"shop/internal/controller/hello"
 	"shop/internal/controller/login"
 	"shop/internal/controller/position"
+	"shop/internal/controller/role"
 	"shop/internal/controller/rotation"
 	"shop/internal/service"
 )
@@ -56,6 +57,7 @@ var (
 					admin.New().Delete,
 					admin.New().Update,
 					data.New(),
+					role.New(),
 				)
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{

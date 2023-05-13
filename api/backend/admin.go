@@ -6,7 +6,7 @@ import (
 )
 
 type AdminAddReq struct {
-	g.Meta   `path:"/backend/admin/create" tags:"用户" method:"post" summary:"添加用户"`
+	g.Meta   `path:"/backend/admin/add" tags:"用户" method:"get" summary:"添加用户"`
 	Username string `json:"username" v:"required#用户名不能为空" dc:"用户名"`
 	Password string `json:"password" v:"required#密码不能为空" dc:"密码"`
 	RoleIds  []int  `json:"role_ids" dc:"角色"`
