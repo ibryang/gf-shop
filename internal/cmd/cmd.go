@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"github.com/goflyfox/gtoken/gtoken"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
@@ -19,24 +18,13 @@ import (
 )
 
 var (
-	gfToken = &gtoken.GfToken{}
-	Main    = gcmd.Command{
+	Main = gcmd.Command{
 		Name:  "main",
 		Usage: "main",
 		Brief: "start http server",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			s := g.Server()
-			gfToken = &gtoken.GfToken{
-				ServerName:       "shop",
-				LoginPath:        "/backend/login",
-				LoginBeforeFunc:  service.Login().LoginBeforeFunc,
-				LoginAfterFunc:   service.Login().LoginAfterFunc,
-				LogoutPath:       "/backend/logout",
-				CacheMode:        2,
-				GlobalMiddleware: false,
-				AuthPaths:        g.SliceStr{"/backend/admin/info"},
-				AuthAfterFunc:    service.Login().AuthAfterFunc,
-			}
+			GToken = RegisterGToken()
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				// gf默认的json返回格式
 				//group.Middleware(ghttp.MiddlewareHandlerResponse)
@@ -44,7 +32,7 @@ var (
 				// gtoken
 				// 鉴权认证
 				group.Bind(admin.New().Create)
-				//err := gfToken.Middleware(ctx, group)
+				//err := GToken.Middleware(ctx, group)
 				if err != nil {
 					panic(err)
 				}

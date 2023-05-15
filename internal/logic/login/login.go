@@ -34,7 +34,7 @@ func (s *sLogin) Login(ctx context.Context, in *model.LoginInput) (err error) {
 	}
 	encryptPassword := utility.EncryptPassword(in.Password, user.UserSalt)
 	if user.Password != encryptPassword {
-		return fmt.Errorf("用户名或密码错误")
+		return fmt.Errorf(consts.ErrLoginFiledMsg)
 	}
 	err = service.Session().SetUser(ctx, user)
 	if err != nil {
@@ -54,18 +54,18 @@ func (s *sLogin) LoginBeforeFunc(r *ghttp.Request) (string, interface{}) {
 	username := r.Get("username")
 	password := r.Get("password")
 	if username.String() == "" || password.String() == "" {
-		response.JsonExit(r, -1, "账号或密码错误.")
+		response.JsonExit(r, -1, consts.ErrLoginFiledMsg)
 	}
 	var user = new(entity.AdminInfo)
 	ctx := r.Context()
 	err := dao.AdminInfo.Ctx(ctx).Where(dao.AdminInfo.Columns().Name, username).Scan(&user)
 	if err != nil {
-		response.JsonExit(r, -1, "账号或密码错误.")
+		response.JsonExit(r, -1, consts.ErrLoginFiledMsg)
 		r.ExitAll()
 	}
 	encryptPassword := utility.EncryptPassword(password.String(), user.UserSalt)
 	if user.Password != encryptPassword {
-		response.JsonExit(r, -1, "账号或密码错误.")
+		response.JsonExit(r, -1, consts.ErrLoginFiledMsg)
 		r.ExitAll()
 	}
 
@@ -84,13 +84,13 @@ func (s *sLogin) LoginAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
 	err := dao.AdminInfo.Ctx(r.Context()).Where(dao.User.Columns().Id, userId).Scan(&user)
 	fmt.Println(user)
 	if err != nil {
-		response.JsonExit(r, -1, "账号或密码错误.")
+		response.JsonExit(r, -1, consts.ErrLoginFiledMsg)
 		return
 	}
-	response.JsonExit(r, 0, "登录成功.", backend.LoginRes{
-		Type:    "Bearer",
-		Token:   resp.GetString("token"),
-		Expire:  10 * 24 * 60 * 60,
+	response.JsonExit(r, consts.GTokenCode, consts.GTokenSuccessMsg, backend.LoginRes{
+		Type:    consts.GTokenType,
+		Token:   resp.GetString(consts.GTokenTokenKey),
+		Expire:  consts.GTokenExpire,
 		IsAdmin: user.IsAdmin,
 		RoleIds: gconv.Ints(user.RoleIds),
 	})
@@ -101,7 +101,7 @@ func (s *sLogin) AuthAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
 	var user model.AdminItemOutput
 	err := gconv.Struct(resp.GetString("data"), &user)
 	if err != nil {
-		response.JsonExit(r, -1, "请求未授权.")
+		response.JsonExit(r, -1, consts.ErrAuthFiledMsg)
 	}
 	r.SetCtxVar(consts.ContextUserId, user.Id)
 	r.SetCtxVar(consts.ContextUsername, user.Name)
