@@ -26,6 +26,14 @@ func EncryptPassword(password, salt string) string {
 	return gmd5.MustEncryptString(gmd5.MustEncryptString(password) + gmd5.MustEncryptString(salt))
 }
 
+// CheckPassword 检查密码
+func CheckPassword(password, encryptPassword, salt string) bool {
+	if encryptPassword == EncryptPassword(password, salt) {
+		return true
+	}
+	return false
+}
+
 // TimeStampToDateTime 时间戳转 yyyy-MM-dd HH:mm:ss
 func TimeStampToDateTime(timeStamp int64) string {
 	tm := gtime.NewFromTimeStamp(timeStamp)

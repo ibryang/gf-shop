@@ -29,15 +29,17 @@ func New() *sLogin {
 func (s *sLogin) Login(ctx context.Context, in *model.LoginInput) (err error) {
 	var user = new(entity.AdminInfo)
 	err = dao.AdminInfo.Ctx(ctx).Where(dao.User.Columns().Username, in.Username).Scan(&user)
-	if err != nil {
+	if err != nil || user == nil {
+		err = fmt.Errorf(consts.ErrLoginFiledMsg)
 		return err
 	}
-	encryptPassword := utility.EncryptPassword(in.Password, user.UserSalt)
-	if user.Password != encryptPassword {
+
+	// Verify the user's password.
+	if !utility.CheckPassword(in.Password, user.Password, user.UserSalt) {
 		return fmt.Errorf(consts.ErrLoginFiledMsg)
 	}
-	err = service.Session().SetUser(ctx, user)
-	if err != nil {
+	// Set the user in the session and context.
+	if err := service.Session().SetUser(ctx, user); err != nil {
 		return err
 	}
 	service.BizCtx().SetUser(ctx, &model.ContextUser{
