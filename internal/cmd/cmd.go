@@ -11,6 +11,7 @@ import (
 	"shop/internal/controller/coupon"
 	"shop/internal/controller/data"
 	"shop/internal/controller/file"
+	"shop/internal/controller/goods"
 	"shop/internal/controller/hello"
 	"shop/internal/controller/login"
 	"shop/internal/controller/permission"
@@ -60,7 +61,8 @@ var (
 					file.New(),       // 文件管理
 					category.New(),   // 商品分类
 					coupon.New(),     // 优惠券
-					userCoupon.New(),
+					userCoupon.New(), // 用户优惠券
+					goods.New(),      // 商品
 				)
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{

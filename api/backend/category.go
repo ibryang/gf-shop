@@ -14,7 +14,7 @@ type CategoryAddUpdateBaseReq struct {
 }
 
 type CategoryReq struct {
-	g.Meta `path:"/backend/category/add " tags:"商品分类" method:"post" summary:"添加商品分类"`
+	g.Meta `path:"/backend/category/add" tags:"商品分类" method:"post" summary:"添加商品分类"`
 	CategoryAddUpdateBaseReq
 }
 

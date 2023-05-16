@@ -12,7 +12,7 @@ type UserCouponAddUpdateBaseReq struct {
 }
 
 type UserCouponReq struct {
-	g.Meta `path:"/backend/user/coupon/add " tags:"用户优惠券" method:"post" summary:"添加优惠券"`
+	g.Meta `path:"/backend/user/coupon/add" tags:"用户优惠券" method:"post" summary:"添加优惠券"`
 	UserCouponAddUpdateBaseReq
 }
 

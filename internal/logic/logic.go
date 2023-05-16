@@ -7,6 +7,7 @@ import (
 	_ "shop/internal/logic/coupon"
 	_ "shop/internal/logic/data"
 	_ "shop/internal/logic/file"
+	_ "shop/internal/logic/goods"
 	_ "shop/internal/logic/login"
 	_ "shop/internal/logic/middleware"
 	_ "shop/internal/logic/permission"

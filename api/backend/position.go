@@ -6,7 +6,7 @@ import (
 )
 
 type PositionReq struct {
-	g.Meta    `path:"/backend/position/add " tags:"手工位" method:"post" summary:"添加手工位"`
+	g.Meta    `path:"/backend/position/add" tags:"手工位" method:"post" summary:"添加手工位"`
 	PicUrl    string `json:"pic_url" v:"required#图片链接不能为空" dc:"图片链接"`
 	Link      string `json:"link" description:"link" v:"required#商品链接不能为空" dc:"跳转链接"`
 	Sort      int    `json:"sort" description:"sort" dc:"排序" d:"1"`
