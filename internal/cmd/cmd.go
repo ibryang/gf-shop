@@ -7,6 +7,7 @@ import (
 	"github.com/gogf/gf/v2/os/gcmd"
 	"shop/internal/consts"
 	"shop/internal/controller/admin"
+	"shop/internal/controller/article"
 	"shop/internal/controller/category"
 	"shop/internal/controller/coupon"
 	"shop/internal/controller/data"
@@ -65,6 +66,7 @@ var (
 					user_coupon.New(),   // 用户优惠券
 					goods.New(),         // 商品
 					goods_options.New(), // 商品规格
+					article.New(),       // 文章
 				)
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{
