@@ -45,3 +45,13 @@ type UserInfoRes struct {
 	Id int64 `json:"id" v:"required#用户id不能为空" dc:"用户id"`
 	UserInfoBase
 }
+
+type UserUpdatePasswordReq struct {
+	g.Meta       `path:"/frontend/user/update/password" tags:"前台用户" method:"post" summary:"用户修改密码"`
+	Password     string `json:"password" v:"password" dc:"密码"`
+	SecretAnswer string `json:"secret_answer" dc:"密保问题的答案"`
+}
+
+type UserUpdatePasswordRes struct {
+	Id int64 `json:"id"`
+}

@@ -23,3 +23,13 @@ type UserLoginInput struct {
 type UserLoginOutput struct {
 	Token string `json:"token"`
 }
+
+type UserUpdatePasswordInput struct {
+	Password     string `json:"password"`
+	UserSalt     string `json:"user_salt"`
+	SecretAnswer string `json:"secret_answer"`
+}
+
+type UserUpdatePasswordOutput struct {
+	Id int64 `json:"id"`
+}

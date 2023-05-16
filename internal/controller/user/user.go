@@ -46,3 +46,17 @@ func (c *Controller) Info(ctx context.Context, req *frontend.UserInfoReq) (res *
 	}
 	return
 }
+
+// UpdatePassword 更新密码
+func (c *Controller) UpdatePassword(ctx context.Context, req *frontend.UserUpdatePasswordReq) (res *frontend.UserUpdatePasswordRes, err error) {
+	out, err := service.User().UpdatePassword(ctx, &model.UserUpdatePasswordInput{
+		Password:     req.Password,
+		SecretAnswer: req.SecretAnswer,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &frontend.UserUpdatePasswordRes{
+		Id: out.Id,
+	}, nil
+}

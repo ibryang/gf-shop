@@ -89,6 +89,7 @@ var (
 					}
 					group.Bind(
 						user.New().Info,
+						user.New().UpdatePassword, // 当前用户通过密保修改密码
 					)
 				})
 			})

@@ -118,3 +118,24 @@ func (s *sUser) AuthAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
 	r.SetCtxVar(consts.ContextUserSign, user.Sign)
 	r.Middleware.Next()
 }
+
+// UpdatePassword 修改密码
+func (s *sUser) UpdatePassword(ctx context.Context, in *model.UserUpdatePasswordInput) (out *model.UserUpdatePasswordOutput, err error) {
+	userId := ctx.Value(consts.ContextUserId)
+	var user *entity.UserInfo
+	err = dao.UserInfo.Ctx(ctx).Where(dao.UserInfo.Columns().Id, userId).Scan(&user)
+	if err != nil {
+		return nil, err
+	}
+	if user.SecretAnswer != in.SecretAnswer {
+		return nil, fmt.Errorf(consts.ErrSecretAnswerMsg)
+	}
+	salt := grand.S(10)
+	in.Password = utility.EncryptPassword(in.Password, salt)
+	in.UserSalt = salt
+	_, err = dao.UserInfo.Ctx(ctx).Where(dao.UserInfo.Columns().Id, userId).Update(in)
+	if err != nil {
+		return nil, err
+	}
+	return &model.UserUpdatePasswordOutput{Id: gconv.Int64(userId)}, err
+}

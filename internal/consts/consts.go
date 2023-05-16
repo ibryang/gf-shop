@@ -15,14 +15,15 @@ const (
 	ContextUserAvatar = "avatar"
 	ContextUserStatus = "status"
 	ContextUserSign   = "sign"
-	
+
 	GTokenExpire     = 10 * 24 * 60 * 60
 	GTokenTokenKey   = "token"
 	GTokenSuccessMsg = "登录成功"
 	GTokenType       = "Bearer"
 	GTokenCode       = 0
 
-	ErrLoginFiledMsg  = "登录失败: 账号或秘密错误"
-	ErrAuthFiledMsg   = "授权失败: Token校验失败"
-	ErrUserIsExistMsg = "用户已存在"
+	ErrLoginFiledMsg   = "登录失败: 账号或秘密错误"
+	ErrAuthFiledMsg    = "授权失败: Token校验失败"
+	ErrUserIsExistMsg  = "用户已存在"
+	ErrSecretAnswerMsg = "密保问题错误"
 )

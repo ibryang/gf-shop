@@ -20,6 +20,7 @@ type (
 		LoginBeforeFunc(r *ghttp.Request) (string, interface{})
 		LoginAfterFunc(r *ghttp.Request, resp gtoken.Resp)
 		AuthAfterFunc(r *ghttp.Request, resp gtoken.Resp)
+		UpdatePassword(ctx context.Context, in *model.UserUpdatePasswordInput) (out *model.UserUpdatePasswordOutput, err error)
 	}
 )
 
