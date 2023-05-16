@@ -52,10 +52,6 @@ var (
 					hello.New(),
 					rotation.New(),
 					position.New(),
-					GTokenBackend.Logout,
-					GTokenBackend.Login,
-					//login.New().Refresh,
-					//login.New().Logout,
 					admin.New().Info,
 					admin.New().List,
 					admin.New().Delete,
@@ -85,7 +81,6 @@ var (
 				group.Middleware(service.Middleware().Ctx, service.Middleware().ResponseHandler)
 				group.Bind(
 					user.New().Register,
-					GTokenFrontend.Login,
 				)
 				group.Group("/", func(group *ghttp.RouterGroup) {
 					err = GTokenFrontend.Middleware(ctx, group)
