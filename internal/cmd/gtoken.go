@@ -6,10 +6,11 @@ import (
 	"shop/internal/service"
 )
 
-var GToken *gtoken.GfToken
+var GTokenBackend *gtoken.GfToken
+var GTokenFrontend *gtoken.GfToken
 
-func RegisterGToken() *gtoken.GfToken {
-	GToken = &gtoken.GfToken{
+func RegisterBackendGToken() *gtoken.GfToken {
+	GTokenBackend = &gtoken.GfToken{
 		ServerName:       "shop",
 		LoginPath:        "/backend/login",
 		LoginBeforeFunc:  service.Login().LoginBeforeFunc,
@@ -20,5 +21,19 @@ func RegisterGToken() *gtoken.GfToken {
 		AuthPaths:        g.SliceStr{"/backend/admin/info"},
 		AuthAfterFunc:    service.Login().AuthAfterFunc,
 	}
-	return GToken
+	return GTokenBackend
+}
+
+func RegisterFrontendGToken() *gtoken.GfToken {
+	GTokenFrontend = &gtoken.GfToken{
+		ServerName:      "shop",
+		LoginPath:       "/login",
+		LoginBeforeFunc: service.User().LoginBeforeFunc,
+		LoginAfterFunc:  service.User().LoginAfterFunc,
+		LogoutPath:      "/logout",
+		CacheMode:       2,
+		MultiLogin:      false,
+		AuthAfterFunc:   service.User().AuthAfterFunc,
+	}
+	return GTokenFrontend
 }

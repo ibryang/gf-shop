@@ -31,7 +31,8 @@ var (
 		Brief: "start http server",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			s := g.Server()
-			GToken = RegisterGToken()
+			GTokenBackend = RegisterBackendGToken()
+			GTokenFrontend = RegisterFrontendGToken()
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				// SwaggerV2 格式的接口
 				group.ALL("/swagger/v2", func(r *ghttp.Request) {
@@ -43,7 +44,7 @@ var (
 				// gtoken
 				// 鉴权认证
 				group.Bind(admin.New().Create)
-				//err := GToken.Middleware(ctx, group)
+				//err := GTokenBackend.Middleware(ctx, group)
 				if err != nil {
 					panic(err)
 				}
@@ -51,8 +52,8 @@ var (
 					hello.New(),
 					rotation.New(),
 					position.New(),
-					GToken.Logout,
-					GToken.Login,
+					GTokenBackend.Logout,
+					GTokenBackend.Login,
 					//login.New().Refresh,
 					//login.New().Logout,
 					admin.New().Info,
@@ -70,7 +71,7 @@ var (
 					goods_options.New(), // 商品规格
 					article.New(),       // 文章
 				)
-				err = GToken.Middleware(ctx, group)
+				err = GTokenBackend.Middleware(ctx, group)
 				group.Bind(article.New().Create)
 				if err != nil {
 					panic(err)
@@ -83,8 +84,15 @@ var (
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				group.Middleware(service.Middleware().Ctx, service.Middleware().ResponseHandler)
 				group.Bind(
-					user.New(),
+					user.New().Register,
+					GTokenFrontend.Login,
 				)
+				group.Group("/", func(group *ghttp.RouterGroup) {
+					err = GTokenFrontend.Middleware(ctx, group)
+					if err != nil {
+						panic(err)
+					}
+				})
 			})
 			s.Run()
 			return nil

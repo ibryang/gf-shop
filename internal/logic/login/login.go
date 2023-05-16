@@ -84,7 +84,6 @@ func (s *sLogin) LoginAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
 	userId := resp.Get("userKey")
 	var user = new(entity.AdminInfo)
 	err := dao.AdminInfo.Ctx(r.Context()).Where(dao.User.Columns().Id, userId).Scan(&user)
-	fmt.Println(user)
 	if err != nil {
 		response.JsonExit(r, -1, consts.ErrLoginFiledMsg)
 		return

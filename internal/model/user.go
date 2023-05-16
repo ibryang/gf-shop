@@ -14,3 +14,12 @@ type UserRegisterInput struct {
 type UserRegisterOutput struct {
 	Id int64 `json:"id"`
 }
+
+type UserLoginInput struct {
+	Name     string `json:"name"`
+	Password string `json:"password"`
+}
+
+type UserLoginOutput struct {
+	Token string `json:"token"`
+}
