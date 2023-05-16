@@ -10,10 +10,10 @@ import (
 
 // PermissionInfo is the golang structure for table permission_info.
 type PermissionInfo struct {
-	Id        int         `json:"id"        description:""`
-	Name      string      `json:"name"      description:"权限名称"`
-	Path      string      `json:"path"      description:"路径"`
-	CreatedAt *gtime.Time `json:"createdAt" description:""`
-	UpdatedAt *gtime.Time `json:"updatedAt" description:""`
-	DeletedAt *gtime.Time `json:"deletedAt" description:""`
+	Id        int         `json:"id"         description:""`
+	Name      string      `json:"name"       description:"权限名称"`
+	Path      string      `json:"path"       description:"路径"`
+	CreatedAt *gtime.Time `json:"created_at" description:""`
+	UpdatedAt *gtime.Time `json:"updated_at" description:""`
+	DeletedAt *gtime.Time `json:"deleted_at" description:""`
 }

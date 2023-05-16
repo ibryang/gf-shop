@@ -10,13 +10,13 @@ import (
 
 // PositionInfo is the golang structure for table position_info.
 type PositionInfo struct {
-	Id        int         `json:"id"        description:""`
-	PicUrl    string      `json:"picUrl"    description:"图片链接"`
-	GoodsName string      `json:"goodsName" description:"商品名称"`
-	Link      string      `json:"link"      description:"跳转链接"`
-	Sort      int         `json:"sort"      description:"排序"`
-	GoodsId   int         `json:"goodsId"   description:"商品id"`
-	CreatedAt *gtime.Time `json:"createdAt" description:""`
-	UpdatedAt *gtime.Time `json:"updatedAt" description:""`
-	DeletedAt *gtime.Time `json:"deletedAt" description:""`
+	Id        int         `json:"id"         description:""`
+	PicUrl    string      `json:"pic_url"    description:"图片链接"`
+	GoodsName string      `json:"goods_name" description:"商品名称"`
+	Link      string      `json:"link"       description:"跳转链接"`
+	Sort      int         `json:"sort"       description:"排序"`
+	GoodsId   int         `json:"goods_id"   description:"商品id"`
+	CreatedAt *gtime.Time `json:"created_at" description:""`
+	UpdatedAt *gtime.Time `json:"updated_at" description:""`
+	DeletedAt *gtime.Time `json:"deleted_at" description:""`
 }

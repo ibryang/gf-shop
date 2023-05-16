@@ -10,11 +10,11 @@ import (
 
 // UserCouponInfo is the golang structure for table user_coupon_info.
 type UserCouponInfo struct {
-	Id        int         `json:"id"        description:"用户优惠券表"`
-	UserId    int         `json:"userId"    description:""`
-	CouponId  int         `json:"couponId"  description:""`
-	Status    int         `json:"status"    description:"状态：1可用 2已用 3过期"`
-	CreatedAt *gtime.Time `json:"createdAt" description:""`
-	UpdatedAt *gtime.Time `json:"updatedAt" description:""`
-	DeletedAt *gtime.Time `json:"deletedAt" description:""`
+	Id        int         `json:"id"         description:"用户优惠券表"`
+	UserId    int         `json:"user_id"    description:""`
+	CouponId  int         `json:"coupon_id"  description:""`
+	Status    int         `json:"status"     description:"状态：1可用 2已用 3过期"`
+	CreatedAt *gtime.Time `json:"created_at" description:""`
+	UpdatedAt *gtime.Time `json:"updated_at" description:""`
+	DeletedAt *gtime.Time `json:"deleted_at" description:""`
 }

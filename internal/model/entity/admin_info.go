@@ -10,12 +10,12 @@ import (
 
 // AdminInfo is the golang structure for table admin_info.
 type AdminInfo struct {
-	Id        int         `json:"id"        description:""`
-	Name      string      `json:"name"      description:"用户名"`
-	Password  string      `json:"password"  description:"密码"`
-	RoleIds   string      `json:"roleIds"   description:"角色ids"`
-	CreatedAt *gtime.Time `json:"createdAt" description:""`
-	UpdatedAt *gtime.Time `json:"updatedAt" description:""`
-	UserSalt  string      `json:"userSalt"  description:"加密盐"`
-	IsAdmin   int         `json:"isAdmin"   description:"是否超级管理员"`
+	Id        int         `json:"id"         description:""`
+	Name      string      `json:"name"       description:"用户名"`
+	Password  string      `json:"password"   description:"密码"`
+	RoleIds   string      `json:"role_ids"   description:"角色ids"`
+	CreatedAt *gtime.Time `json:"created_at" description:""`
+	UpdatedAt *gtime.Time `json:"updated_at" description:""`
+	UserSalt  string      `json:"user_salt"  description:"加密盐"`
+	IsAdmin   int         `json:"is_admin"   description:"是否超级管理员"`
 }

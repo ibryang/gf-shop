@@ -10,11 +10,11 @@ import (
 
 // CartInfo is the golang structure for table cart_info.
 type CartInfo struct {
-	Id             int         `json:"id"             description:"购物车表"`
-	UserId         int         `json:"userId"         description:""`
-	GoodsOptionsId int         `json:"goodsOptionsId" description:"商品规格id"`
-	Count          int         `json:"count"          description:"商品数量"`
-	CreatedAt      *gtime.Time `json:"createdAt"      description:""`
-	UpdatedAt      *gtime.Time `json:"updatedAt"      description:""`
-	DeletedAt      *gtime.Time `json:"deletedAt"      description:""`
+	Id             int         `json:"id"               description:"购物车表"`
+	UserId         int         `json:"user_id"          description:""`
+	GoodsOptionsId int         `json:"goods_options_id" description:"商品规格id"`
+	Count          int         `json:"count"            description:"商品数量"`
+	CreatedAt      *gtime.Time `json:"created_at"       description:""`
+	UpdatedAt      *gtime.Time `json:"updated_at"       description:""`
+	DeletedAt      *gtime.Time `json:"deleted_at"       description:""`
 }

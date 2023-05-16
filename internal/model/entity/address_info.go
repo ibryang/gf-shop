@@ -10,9 +10,9 @@ import (
 
 // AddressInfo is the golang structure for table address_info.
 type AddressInfo struct {
-	Id        int         `json:"id"        description:""`
-	Name      string      `json:"name"      description:""`
-	Pid       int         `json:"pid"       description:""`
-	Status    int         `json:"status"    description:""`
-	UpdatedAt *gtime.Time `json:"updatedAt" description:""`
+	Id        int         `json:"id"         description:""`
+	Name      string      `json:"name"       description:""`
+	Pid       int         `json:"pid"        description:""`
+	Status    int         `json:"status"     description:""`
+	UpdatedAt *gtime.Time `json:"updated_at" description:""`
 }
