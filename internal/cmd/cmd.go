@@ -9,6 +9,7 @@ import (
 	"shop/internal/controller/admin"
 	"shop/internal/controller/article"
 	"shop/internal/controller/category"
+	"shop/internal/controller/collection"
 	"shop/internal/controller/coupon"
 	"shop/internal/controller/data"
 	"shop/internal/controller/file"
@@ -90,6 +91,7 @@ var (
 					group.Bind(
 						user.New().Info,
 						user.New().UpdatePassword, // 当前用户通过密保修改密码
+						collection.New(),
 					)
 				})
 			})

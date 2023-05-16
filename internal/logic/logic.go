@@ -5,6 +5,7 @@ import (
 	_ "shop/internal/logic/article"
 	_ "shop/internal/logic/bizctx"
 	_ "shop/internal/logic/category"
+	_ "shop/internal/logic/collection"
 	_ "shop/internal/logic/coupon"
 	_ "shop/internal/logic/data"
 	_ "shop/internal/logic/file"
