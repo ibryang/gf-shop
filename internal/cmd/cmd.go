@@ -12,13 +12,14 @@ import (
 	"shop/internal/controller/data"
 	"shop/internal/controller/file"
 	"shop/internal/controller/goods"
+	"shop/internal/controller/goods_options"
 	"shop/internal/controller/hello"
 	"shop/internal/controller/login"
 	"shop/internal/controller/permission"
 	"shop/internal/controller/position"
 	"shop/internal/controller/role"
 	"shop/internal/controller/rotation"
-	"shop/internal/controller/userCoupon"
+	"shop/internal/controller/user_coupon"
 	"shop/internal/service"
 )
 
@@ -56,13 +57,14 @@ var (
 					admin.New().Delete,
 					admin.New().Update,
 					data.New(),
-					role.New(),       // 角色
-					permission.New(), // 权限
-					file.New(),       // 文件管理
-					category.New(),   // 商品分类
-					coupon.New(),     // 优惠券
-					userCoupon.New(), // 用户优惠券
-					goods.New(),      // 商品
+					role.New(),          // 角色
+					permission.New(),    // 权限
+					file.New(),          // 文件管理
+					category.New(),      // 商品分类
+					coupon.New(),        // 优惠券
+					user_coupon.New(),   // 用户优惠券
+					goods.New(),         // 商品
+					goods_options.New(), // 商品规格
 				)
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{

@@ -1,6 +1,6 @@
 package model
 
-// GoodsCreateUpdateBase 用户优惠券创建或更新时模型
+// GoodsCreateUpdateBase 商品创建或更新时模型
 type GoodsCreateUpdateBase struct {
 	PicUrl           string `json:"pic_url"`
 	Name             string `json:"name"`
@@ -15,30 +15,30 @@ type GoodsCreateUpdateBase struct {
 	DetailInfo       string `json:"detail_info"`
 }
 
-// GoodsCreateInput 用户优惠券创建
+// GoodsCreateInput 商品创建
 type GoodsCreateInput struct {
 	GoodsCreateUpdateBase
 }
 
-// GoodsCreateOutput 用户优惠券创建
+// GoodsCreateOutput 商品创建
 type GoodsCreateOutput struct {
 	Id int64 `json:"id"`
 }
 
-// GoodsUpdateInput 用户优惠券更新
+// GoodsUpdateInput 商品更新
 type GoodsUpdateInput struct {
 	Id int
 	GoodsCreateUpdateBase
 }
 
-// GoodsListInput 用户优惠券列表
+// GoodsListInput 商品列表
 type GoodsListInput struct {
 	Sort     int `json:"sort"`
 	Page     int `json:"page"`
 	PageSize int `json:"page_size"`
 }
 
-// GoodsListItem 用户优惠券列表
+// GoodsListItem 商品列表
 type GoodsListItem struct {
 	Id int `json:"id"`
 	GoodsCreateUpdateBase

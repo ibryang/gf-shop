@@ -8,6 +8,7 @@ import (
 	_ "shop/internal/logic/data"
 	_ "shop/internal/logic/file"
 	_ "shop/internal/logic/goods"
+	_ "shop/internal/logic/goods_options"
 	_ "shop/internal/logic/login"
 	_ "shop/internal/logic/middleware"
 	_ "shop/internal/logic/permission"
@@ -15,5 +16,5 @@ import (
 	_ "shop/internal/logic/role"
 	_ "shop/internal/logic/rotation"
 	_ "shop/internal/logic/session"
-	_ "shop/internal/logic/userCoupon"
+	_ "shop/internal/logic/user_coupon"
 )
