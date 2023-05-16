@@ -17,6 +17,7 @@ import (
 	"shop/internal/controller/position"
 	"shop/internal/controller/role"
 	"shop/internal/controller/rotation"
+	"shop/internal/controller/userCoupon"
 	"shop/internal/service"
 )
 
@@ -59,6 +60,7 @@ var (
 					file.New(),       // 文件管理
 					category.New(),   // 商品分类
 					coupon.New(),     // 优惠券
+					userCoupon.New(),
 				)
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{
