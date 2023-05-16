@@ -8,6 +8,7 @@ import (
 	"shop/internal/consts"
 	"shop/internal/controller/admin"
 	"shop/internal/controller/category"
+	"shop/internal/controller/coupon"
 	"shop/internal/controller/data"
 	"shop/internal/controller/file"
 	"shop/internal/controller/hello"
@@ -53,10 +54,11 @@ var (
 					admin.New().Delete,
 					admin.New().Update,
 					data.New(),
-					role.New(),
-					permission.New(),
-					file.New(),
-					category.New(),
+					role.New(),       // 角色
+					permission.New(), // 权限
+					file.New(),       // 文件管理
+					category.New(),   // 商品分类
+					coupon.New(),     // 优惠券
 				)
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{
