@@ -6,13 +6,13 @@ import (
 )
 
 type ArticleAddUpdateBaseReq struct {
-	UserId  int    `json:"user_id" v:"required#用户id不能为空" dc:"用户id"`
-	Title   string `json:"title" v:"required#文章名称不能为空" dc:"文章名称"`
-	Desc    string `json:"desc" v:"" dc:"文章概要"`
-	PicUrl  string `json:"pic_url" dc:"图片"`
-	IsAdmin int    `json:"is_admin" v:"" dc:"是否是管理员发布" d:"1"`
-	Detail  string `json:"detail" v:"required#文章详情" dc:"文章详情"`
-	Praise  int    `json:"praise" v:"" dc:"点赞数"`
+	//UserId int    `json:"user_id" v:"required#用户id不能为空" dc:"用户id"`
+	Title  string `json:"title" v:"required#文章名称不能为空" dc:"文章名称"`
+	Desc   string `json:"desc" v:"" dc:"文章概要"`
+	PicUrl string `json:"pic_url" dc:"图片"`
+	//IsAdmin int    `json:"is_admin" v:"" dc:"是否是管理员发布" d:"1"`
+	Detail string `json:"detail" v:"required#文章详情" dc:"文章详情"`
+	Praise int    `json:"praise" v:"" dc:"点赞数"`
 }
 
 type ArticleAddReq struct {

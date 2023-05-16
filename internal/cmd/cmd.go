@@ -68,6 +68,11 @@ var (
 					goods_options.New(), // 商品规格
 					article.New(),       // 文章
 				)
+				err = GToken.Middleware(ctx, group)
+				group.Bind(article.New().Create)
+				if err != nil {
+					panic(err)
+				}
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{
 				//	"/backend/admin/info": admin.New().Info,
