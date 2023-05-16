@@ -15,11 +15,11 @@ import (
 	"shop/internal/controller/goods"
 	"shop/internal/controller/goods_options"
 	"shop/internal/controller/hello"
-	"shop/internal/controller/login"
 	"shop/internal/controller/permission"
 	"shop/internal/controller/position"
 	"shop/internal/controller/role"
 	"shop/internal/controller/rotation"
+	"shop/internal/controller/user"
 	"shop/internal/controller/user_coupon"
 	"shop/internal/service"
 )
@@ -51,8 +51,10 @@ var (
 					hello.New(),
 					rotation.New(),
 					position.New(),
-					login.New().Refresh,
-					login.New().Logout,
+					GToken.Logout,
+					GToken.Login,
+					//login.New().Refresh,
+					//login.New().Logout,
 					admin.New().Info,
 					admin.New().List,
 					admin.New().Delete,
@@ -77,6 +79,12 @@ var (
 				//group.ALLMap(map[string]interface{}{
 				//	"/backend/admin/info": admin.New().Info,
 				//})
+			})
+			s.Group("/", func(group *ghttp.RouterGroup) {
+				group.Middleware(service.Middleware().Ctx, service.Middleware().ResponseHandler)
+				group.Bind(
+					user.New(),
+				)
 			})
 			s.Run()
 			return nil

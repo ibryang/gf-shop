@@ -17,5 +17,6 @@ import (
 	_ "shop/internal/logic/role"
 	_ "shop/internal/logic/rotation"
 	_ "shop/internal/logic/session"
+	_ "shop/internal/logic/user"
 	_ "shop/internal/logic/user_coupon"
 )
