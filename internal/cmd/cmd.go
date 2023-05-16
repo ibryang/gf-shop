@@ -5,7 +5,9 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
+	"shop/internal/consts"
 	"shop/internal/controller/admin"
+	"shop/internal/controller/category"
 	"shop/internal/controller/data"
 	"shop/internal/controller/file"
 	"shop/internal/controller/hello"
@@ -26,6 +28,10 @@ var (
 			s := g.Server()
 			GToken = RegisterGToken()
 			s.Group("/", func(group *ghttp.RouterGroup) {
+				// SwaggerV2 格式的接口
+				group.ALL("/swagger/v2", func(r *ghttp.Request) {
+					r.Response.Write(consts.SwaggerUIPageContent)
+				})
 				// gf默认的json返回格式
 				//group.Middleware(ghttp.MiddlewareHandlerResponse)
 				group.Middleware(service.Middleware().Ctx, service.Middleware().ResponseHandler)
@@ -50,6 +56,7 @@ var (
 					role.New(),
 					permission.New(),
 					file.New(),
+					category.New(),
 				)
 				//group.Middleware(service.Middleware().Auth)  // for jwt
 				//group.ALLMap(map[string]interface{}{
