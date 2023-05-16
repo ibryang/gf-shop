@@ -44,8 +44,8 @@ func (s *sArticle) List(ctx context.Context, in *model.ArticleListInput) (out *m
 
 // Create 文章创建
 func (s *sArticle) Create(ctx context.Context, in *model.ArticleCreateInput) (out model.ArticleCreateOutput, err error) {
-	userId := ctx.Value(consts.ContextUserId)
-	isAdmin := ctx.Value(consts.ContextUserIsAdmin)
+	userId := ctx.Value(consts.ContextAdminId)
+	isAdmin := ctx.Value(consts.ContextAdminIsAdmin)
 	in.UserId = userId.(int)
 	in.IsAdmin = isAdmin.(int)
 	id, err := dao.ArticleInfo.Ctx(ctx).InsertAndGetId(in)
@@ -63,7 +63,7 @@ func (s *sArticle) Delete(ctx context.Context, id int) (err error) {
 
 // Update 文章更新
 func (s *sArticle) Update(ctx context.Context, in *model.ArticleUpdateInput) (err error) {
-	userId := ctx.Value(consts.ContextUserId)
+	userId := ctx.Value(consts.ContextAdminId)
 	in.UserId = userId.(int)
 	_, err = dao.ArticleInfo.
 		Ctx(ctx).

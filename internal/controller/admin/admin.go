@@ -84,10 +84,10 @@ func (c *Controller) Update(ctx context.Context, req *backend.AdminUpdateReq) (r
 // for gtoken
 func (c *Controller) Info(ctx context.Context, req *backend.AdminInfoReq) (res *backend.AdminInfoRes, err error) {
 	res = &backend.AdminInfoRes{
-		Id:       gconv.Int(ctx.Value(consts.ContextUserId)),
-		Username: gconv.String(ctx.Value(consts.ContextUsername)),
-		IsAdmin:  gconv.Int(ctx.Value(consts.ContextUserIsAdmin)),
-		RoleIds:  gconv.Ints(ctx.Value(consts.ContextUserRoleIds)),
+		Id:       gconv.Int(ctx.Value(consts.ContextAdminId)),
+		Username: gconv.String(ctx.Value(consts.ContextAdminName)),
+		IsAdmin:  gconv.Int(ctx.Value(consts.ContextAdminIsAdmin)),
+		RoleIds:  gconv.Ints(ctx.Value(consts.ContextAdminRoleIds)),
 	}
 	return
 }

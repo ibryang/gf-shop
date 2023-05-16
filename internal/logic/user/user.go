@@ -7,7 +7,7 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/util/gconv"
 	"github.com/gogf/gf/v2/util/grand"
-	"shop/api/frontend"
+	frontend "shop/api/frontend"
 	"shop/internal/consts"
 	"shop/internal/dao"
 	"shop/internal/model"
@@ -93,11 +93,13 @@ func (s *sUser) LoginAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
 		Type:   consts.GTokenType,
 		Token:  resp.GetString(consts.GTokenTokenKey),
 		Expire: consts.GTokenExpire,
-		Name:   user.Name,
-		Avatar: user.Avatar,
-		Sex:    user.Sex,
-		Sign:   user.Sign,
-		Status: user.Status,
+		UserInfoBase: frontend.UserInfoBase{
+			Name:   user.Name,
+			Avatar: user.Avatar,
+			Sex:    user.Sex,
+			Sign:   user.Sign,
+			Status: user.Status,
+		},
 	})
 }
 
@@ -109,6 +111,10 @@ func (s *sUser) AuthAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
 		response.JsonExit(r, -1, consts.ErrAuthFiledMsg)
 	}
 	r.SetCtxVar(consts.ContextUserId, user.Id)
-	r.SetCtxVar(consts.ContextUsername, user.Name)
+	r.SetCtxVar(consts.ContextUserName, user.Name)
+	r.SetCtxVar(consts.ContextUserAvatar, user.Avatar)
+	r.SetCtxVar(consts.ContextUserSex, user.Sex)
+	r.SetCtxVar(consts.ContextUserStatus, user.Status)
+	r.SetCtxVar(consts.ContextUserSign, user.Sign)
 	r.Middleware.Next()
 }

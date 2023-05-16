@@ -87,6 +87,9 @@ var (
 					if err != nil {
 						panic(err)
 					}
+					group.Bind(
+						user.New().Info,
+					)
 				})
 			})
 			s.Run()

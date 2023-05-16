@@ -104,9 +104,9 @@ func (s *sLogin) AuthAfterFunc(r *ghttp.Request, resp gtoken.Resp) {
 	if err != nil {
 		response.JsonExit(r, -1, consts.ErrAuthFiledMsg)
 	}
-	r.SetCtxVar(consts.ContextUserId, user.Id)
-	r.SetCtxVar(consts.ContextUsername, user.Name)
-	r.SetCtxVar(consts.ContextUserIsAdmin, user.IsAdmin)
-	r.SetCtxVar(consts.ContextUserRoleIds, user.RoleIds)
+	r.SetCtxVar(consts.ContextAdminId, user.Id)
+	r.SetCtxVar(consts.ContextAdminName, user.Name)
+	r.SetCtxVar(consts.ContextAdminIsAdmin, user.IsAdmin)
+	r.SetCtxVar(consts.ContextAdminRoleIds, user.RoleIds)
 	r.Middleware.Next()
 }
