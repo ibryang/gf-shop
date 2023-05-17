@@ -43,6 +43,7 @@ func (c *Controller) List(ctx context.Context, req *frontend.CollectionListReq) 
 	output, err := service.Collection().List(ctx, &model.CollectionListInput{
 		Page:     req.Page,
 		PageSize: req.PageSize,
+		Type:     req.Type,
 	})
 	if err != nil {
 		return nil, err

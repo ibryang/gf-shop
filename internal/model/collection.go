@@ -25,6 +25,7 @@ type CollectionCancelOutput struct {
 type CollectionListInput struct {
 	Page     int `json:"page"`
 	PageSize int `json:"page_size"`
+	Type     int `json:"type"`
 }
 
 type CollectionItem struct {

@@ -28,6 +28,7 @@ type CollectionCancelRes struct {
 type CollectionListReq struct {
 	g.Meta `path:"/frontend/collection/list" tags:"前台收藏" method:"get" summary:"收藏列表"`
 	common.PaginationReq
+	Type int `json:"type" v:"in:0,1,2" dc:"类型: 0默认, 1商品, 2文章"`
 }
 
 type CollectionListRes struct {

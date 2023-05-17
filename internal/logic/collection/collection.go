@@ -49,14 +49,24 @@ func (s *sCollection) Cancel(ctx context.Context, in *model.CollectionCancelInpu
 
 func (s *sCollection) List(ctx context.Context, in *model.CollectionListInput) (out *model.CollectionListOutput, err error) {
 	var m = dao.CollectionInfo.Ctx(ctx)
-	var userId = ctx.Value(consts.ContextUserId).(int)
 	out = &model.CollectionListOutput{}
 	listModel := m.Page(in.Page, in.PageSize)
-	listModel = listModel.Where(g.Map{
-		dao.CollectionInfo.Columns().UserId: userId,
-	})
+
+	//var userId = ctx.Value(consts.ContextUserId).(int)
+	//listModel = listModel.Where(g.Map{
+	//	dao.CollectionInfo.Columns().UserId: userId,
+	//})
+	if in.Type != 0 {
+		listModel = listModel.Where(dao.CollectionInfo.Columns().Type, in.Type)
+	}
 	var list []*model.CollectionItem
-	if err = listModel.WithAll().Scan(&list); err != nil {
+	//if err = listModel.WithAll().Scan(&list); err != nil {  // WithAll() 查询所有的关联数据
+	if in.Type == 1 {
+		err = listModel.With(model.GoodsItem{}).Scan(&list)
+	} else if in.Type == 2 {
+		err = listModel.With(model.ArticleItem{}).Scan(&list)
+	}
+	if err != nil {
 		return nil, err
 	}
 
@@ -64,7 +74,7 @@ func (s *sCollection) List(ctx context.Context, in *model.CollectionListInput) (
 		return out, nil
 	}
 
-	out.Total, err = m.Count()
+	out.Total, err = listModel.Count()
 	if err != nil {
 		return nil, err
 	}
