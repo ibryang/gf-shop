@@ -46,3 +46,28 @@ func (s *sCollection) Cancel(ctx context.Context, in *model.CollectionCancelInpu
 	}
 	return err
 }
+
+func (s *sCollection) List(ctx context.Context, in *model.CollectionListInput) (out *model.CollectionListOutput, err error) {
+	var m = dao.CollectionInfo.Ctx(ctx)
+	var userId = ctx.Value(consts.ContextUserId).(int)
+	out = &model.CollectionListOutput{}
+	listModel := m.Page(in.Page, in.PageSize)
+	listModel = listModel.Where(g.Map{
+		dao.CollectionInfo.Columns().UserId: userId,
+	})
+	var list []*model.CollectionItem
+	if err = listModel.WithAll().Scan(&list); err != nil {
+		return nil, err
+	}
+
+	if len(list) == 0 {
+		return out, nil
+	}
+
+	out.Total, err = m.Count()
+	if err != nil {
+		return nil, err
+	}
+	out.List = list
+	return out, nil
+}

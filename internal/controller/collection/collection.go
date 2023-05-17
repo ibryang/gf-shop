@@ -37,3 +37,19 @@ func (c *Controller) Cancel(ctx context.Context, req *frontend.CollectionCancelR
 	})
 	return
 }
+
+// List 列表
+func (c *Controller) List(ctx context.Context, req *frontend.CollectionListReq) (res *frontend.CollectionListRes, err error) {
+	output, err := service.Collection().List(ctx, &model.CollectionListInput{
+		Page:     req.Page,
+		PageSize: req.PageSize,
+	})
+	if err != nil {
+		return nil, err
+	}
+	res = &frontend.CollectionListRes{
+		List:  output.List,
+		Total: output.Total,
+	}
+	return
+}

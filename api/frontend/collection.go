@@ -1,6 +1,9 @@
 package frontend
 
-import "github.com/gogf/gf/v2/frame/g"
+import (
+	"github.com/gogf/gf/v2/frame/g"
+	"shop/api/common"
+)
 
 type CollectionAddReq struct {
 	g.Meta   `path:"/frontend/collection/add" tags:"前台收藏" method:"post" summary:"添加收藏"`
@@ -20,4 +23,14 @@ type CollectionCancelReq struct {
 }
 
 type CollectionCancelRes struct {
+}
+
+type CollectionListReq struct {
+	g.Meta `path:"/frontend/collection/list" tags:"前台收藏" method:"get" summary:"收藏列表"`
+	common.PaginationReq
+}
+
+type CollectionListRes struct {
+	List  interface{} `json:"list"`
+	Total int         `json:"total"`
 }
